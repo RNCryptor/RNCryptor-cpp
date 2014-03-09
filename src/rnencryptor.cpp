@@ -1,4 +1,3 @@
-
 #include "rnencryptor.h"
 
 #include <sstream>
@@ -87,8 +86,10 @@ string RNEncryptor::generateIv(int length)
 {
 	AutoSeededRandomPool prng;
 
-	byte iv[length];
-	prng.GenerateBlock(iv, sizeof(iv));
+	byte iv[length + 1];
+	prng.GenerateBlock(iv, length);
+
+        iv[length] = '\0';
 
 	string ivString = string((char *)iv);
 	return ivString;
